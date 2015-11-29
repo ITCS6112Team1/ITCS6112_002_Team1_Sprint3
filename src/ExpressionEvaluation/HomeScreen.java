@@ -77,7 +77,7 @@ public class HomeScreen {
 				}
 				catch(Exception e1)
 				{
-				JOptionPane.showMessageDialog(null, "pls select option1");
+				JOptionPane.showMessageDialog(null, "pls select option");
 				}
 			}
 		});
