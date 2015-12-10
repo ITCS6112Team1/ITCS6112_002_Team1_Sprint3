@@ -14,10 +14,10 @@ import javax.swing.*;
 
 public class CalculatorView extends JFrame{
 	private final String[] KEYS = { "7", "8", "9", "/", "sqrt", "4", "5", "6",
-			"*", "%", "1", "2", "3", "-", "1/x", "0", "+/-", ".", "+", "=" };
-	private final String[] COMMAND = { "Backspace", "CE", "C" };
+			"*", "%", "1", "2", "3", "-", "1/x", "0", "^", ".", "+", "=" };
+	private final String[] COMMAND = { "Backspace", "CE", "C"};
 	//private final String[] M = { "Formula", "MC", "MR", "MS", "M+" };
-	private final String[] M={"(", ")","back"};
+	private final String[] M={"back","(", ")"};
 	private JButton keys[] = new JButton[KEYS.length];
 	private JButton commands[] = new JButton[COMMAND.length];
 	private JButton m[] = new JButton[M.length];

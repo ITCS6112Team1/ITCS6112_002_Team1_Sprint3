@@ -6,11 +6,12 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import ExpressionEvaluation.HelpScreen;
 import ExpressionEvaluation.HomeScreen;
 import view.CalculatorView;
 import Model.NiBoLan;
 import Model.NormalCalculatorModel;
-
+import Model.expressionReverse;
 
 public class NormalCalculatorController {
 
@@ -20,13 +21,11 @@ public class NormalCalculatorController {
 	float processNumber = 0;
 	String preOperater = "=";
 
-	public NormalCalculatorController(NormalCalculatorModel theModel,
-			CalculatorView theView) {
+	public NormalCalculatorController(NormalCalculatorModel theModel, CalculatorView theView) {
 		this.theView = theView;
 		this.theModel = theModel;
 		this.theView.addCalculationListener(new CalculateListener());
 	}
-	
 
 	class CalculateListener implements ActionListener {
 
@@ -37,63 +36,61 @@ public class NormalCalculatorController {
 		public void actionPerformed(ActionEvent e) {
 			String label = e.getActionCommand();
 			String text = theView.getResultText();
-			
-			if(label.equals("Backspace")){
+
+			if (label.equals("Backspace")) {
 				// user input backspace
 				String result[] = theModel.handleBackspace(text, firstDigit);
 				theView.setResultText(result[0]);
 				firstDigit = result[1].equals("true") ? true : false;
-			}else if("0123456789.+-*/()".indexOf(label) >= 0){
-				 //user input number or "."
+			} else if ("0123456789.+-*/()^".indexOf(label) >= 0) {
+				// user input number or "."
 				String[] result = theModel.handleNumber(firstDigit, text, label);
 				theView.setResultText(result[0]);
-				firstDigit = result[1].equals("true") ? true : false;
-			} else if (label.equals("CE")) {
+				firstDigit = result[1].equals("true") ? true : false;}
+//			 else if (label.equals("help")) {
+//				HelpScreen window = new HelpScreen();
+//				window.frame.setVisible(true);}
+				
+				else if (label.equals("CE")) {
 				// user input"CE"
 				String[] result = theModel.handleCE(text, firstDigit);
 				theView.setResultText(result[0]);
 				firstDigit = result[1].equals("true") ? true : false;
-			}else if(label.equals("=")){
+			} else if (label.equals("=")) {
 				NiBoLan exp = new NiBoLan();
-				exp.reverse(text);
-				float result =  exp.calculate(exp.getReversedExpression());
+				expressionReverse er = new expressionReverse();
+				String abc = er.reverse(text);
+				exp.reverse(abc);
+				float result = exp.calculate(exp.getReversedExpression());
 				theView.setResultText(String.valueOf(result));
 				firstDigit = true;
-			}else if(label.equals("back")){
-				try{
-					
-					
+			} else if (label.equals("back")) {
+				try {					
 					HomeScreen window = new HomeScreen();
 					window.frame.setVisible(true);
 					theView.CloseFrame();
 					
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "pls select option");
 				}
-				catch(Exception e1)
-				{
-				JOptionPane.showMessageDialog(null, "pls select option");
-				}
-			}else{
-				//calculate by NiBolan,and show the result on view
-				String[] result = theModel.handleOperator(text, processNumber,
-				firstDigit, preOperater, label);
+			} else {
+				// calculate by NiBolan,and show the result on view
+				String[] result = theModel.handleOperator(text, processNumber, firstDigit, preOperater, label);
 				theView.setResultText(result[0]);
 				processNumber = Float.valueOf(result[0]);
 				preOperater = result[1];
 				firstDigit = result[2].equals("true") ? true : false;
 			}
-			
-			
-			
-//			else{
-//				String[] result = theModel.handleOperator(text, processNumber,
-//				firstDigit, preOperater, label);
-//				theView.setResultText(result[0]);
-//				processNumber = Float.valueOf(result[0]);
-//				preOperater = result[1];
-//				firstDigit = result[2].equals("true") ? true : false;
-//			}
+
+			// else{
+			// String[] result = theModel.handleOperator(text, processNumber,
+			// firstDigit, preOperater, label);
+			// theView.setResultText(result[0]);
+			// processNumber = Float.valueOf(result[0]);
+			// preOperater = result[1];
+			// firstDigit = result[2].equals("true") ? true : false;
+			// }
 		}
 	}
-
 
 }

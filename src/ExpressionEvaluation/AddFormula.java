@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import SQL.sqlConnection;
 
@@ -53,11 +54,11 @@ public class AddFormula extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblEnterFormula = new JLabel("Enter Formula");
-		lblEnterFormula.setBounds(36, 78, 97, 14);
+		lblEnterFormula.setBounds(56, 78, 97, 14);
 		contentPane.add(lblEnterFormula);
 		
 		textField = new JTextField();
-		textField.setBounds(163, 75, 116, 20);
+		textField.setBounds(138, 75, 116, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -65,10 +66,14 @@ public class AddFormula extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String str = textField.getText();
+				//if(!(str.matches("^[e-z]*$")))
+				
+					if(! Pattern.matches(".*[e-z]+.*", str))
+					
 				try{
 					String expression = str;
 //					JOptionPane.showMessageDialog(null, expression);
-					expression = expression.replaceAll("[a-z0-9]","?");
+					expression = expression.replaceAll("[a-z]","?");
 					  expression = expression.replaceAll(" ","");
 					  if(expression.matches("^??$")) {
 						  JOptionPane.showMessageDialog(null, "Enter valid expression");
@@ -91,9 +96,8 @@ public class AddFormula extends JFrame {
 						  JOptionPane.showMessageDialog(null, "Enter valid expression");
 					  }
 					  expression = expression.replaceAll("\\(|\\)", "");
-					  System.out.println(expression);
-
-					  if(expression.matches("^\\?((\\+|-|\\*|\\/)\\?)*$")) {
+					  expression = expression.replaceAll("[0-9]", "?");
+					  if(expression.matches("^\\?((\\+|-|\\*|\\/|\\^)\\?)*$")) {
 //						  JOptionPane.showMessageDialog(null, "Is valid expression");
 							String query="insert into formula (formula) values (?)";
 							PreparedStatement pst=connection.prepareStatement(query);
@@ -109,11 +113,14 @@ public class AddFormula extends JFrame {
 					}
 				catch(Exception e2)
 				{
-					JOptionPane.showMessageDialog(null, "Enter Formula");
+					JOptionPane.showMessageDialog(null, "Enter Valid Formula/Formula already saved");
 				}
+					else
+						JOptionPane.showMessageDialog(null, "Enter valid expression");
+						
 			}
 		});
-		btnSave.setBounds(190, 124, 89, 23);
+		btnSave.setBounds(148, 106, 89, 23);
 		contentPane.add(btnSave);
 		
 		JButton btnBack = new JButton("Back");
@@ -134,6 +141,9 @@ public class AddFormula extends JFrame {
 		});
 		btnBack.setBounds(0, 0, 68, 23);
 		contentPane.add(btnBack);
+		
+		JLabel lblNoteVariablesAllowed = new JLabel("Note: Variables allowed a, b, c & d.");
+		lblNoteVariablesAllowed.setBounds(10, 166, 244, 14);
+		contentPane.add(lblNoteVariablesAllowed);
 	}
-
 }

@@ -1,17 +1,22 @@
 package ExpressionEvaluation;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+
+
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import main.MainMethod;
 
-
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class HomeScreen {
 
@@ -63,7 +68,7 @@ public class HomeScreen {
 				}
 			}
 		});
-		btnNormalCalculator.setBounds(80, 52, 157, 34);
+		btnNormalCalculator.setBounds(80, 109, 157, 34);
 		frame.getContentPane().add(btnNormalCalculator);
 		
 		JButton btnFormulaEvaluation = new JButton("Formula Evaluation");
@@ -81,7 +86,38 @@ public class HomeScreen {
 				}
 			}
 		});
-		btnFormulaEvaluation.setBounds(80, 130, 157, 34);
+		btnFormulaEvaluation.setBounds(80, 154, 157, 34);
 		frame.getContentPane().add(btnFormulaEvaluation);
-	}
+		
+		JButton btnHelp = new JButton("Help");
+		btnHelp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try{
+					
+					 
+						HelpScreen window = new HelpScreen();
+						window.frame1.setVisible(true);
+					
+				}
+				catch(Exception e1)
+				{
+				JOptionPane.showMessageDialog(null, "pls select option2");
+				}
+			}
+		});
+		btnHelp.setBounds(241, 11, 67, 23);
+		frame.getContentPane().add(btnHelp);
+		
+		JLabel lblIcalculator = new JLabel("iCalculator");
+		lblIcalculator.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
+		lblIcalculator.setBounds(107, 69, 149, 14);
+		frame.getContentPane().add(lblIcalculator);
+		
+//		JLabel lblIcalculator = new JLabel("iCalculator");
+//		lblIcalculator.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
+//		lblIcalculator.setBounds(80, 46, 157, 34);
+//		frame.getContentPane().add(lblIcalculator);
+//		Image img1 = new ImageIcon(this.getClass().getResource("/i.png")).getImage();
+//	
+		}
 }

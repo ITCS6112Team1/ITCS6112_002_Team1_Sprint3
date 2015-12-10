@@ -13,6 +13,8 @@ import javax.swing.border.EmptyBorder;
 
 //import FormulaeEval.Formulae;
 
+import ExpressionEvaluation.HomeScreen;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -65,18 +67,19 @@ public class ChooseOption extends JFrame {
 					CloseFrame();
 					
 				}
-				catch(Exception e1)
+				catch(Exception e13)
 				{
-				JOptionPane.showMessageDialog(null, "pls select option2");
+				JOptionPane.showMessageDialog(null, "pls select option1");
 				}
+			
 				
 				
 			}
 		});
-		btnAddNewFormula.setBounds(39, 131, 151, 23);
+		btnAddNewFormula.setBounds(39, 135, 151, 23);
 		contentPane.add(btnAddNewFormula);
 		
-		JButton btnUseSavedFormula = new JButton("Use Saved Formula");
+		JButton btnUseSavedFormula = new JButton("User Formulae");
 		btnUseSavedFormula.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try{
@@ -92,7 +95,7 @@ public class ChooseOption extends JFrame {
 				}
 			}
 		});
-		btnUseSavedFormula.setBounds(39, 60, 151, 23);
+		btnUseSavedFormula.setBounds(39, 101, 151, 23);
 		contentPane.add(btnUseSavedFormula);
 		
 		JButton btnBack = new JButton("Back");

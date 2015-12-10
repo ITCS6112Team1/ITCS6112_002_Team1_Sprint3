@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Model.NiBoLan;
+import Model.expressionReverse;
 import SQL.sqlConnection;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -104,7 +105,9 @@ public class EvaluateFormula extends JFrame {
 					{
 						textField_6.setText(rs.getString("formula"));
 						String frm = (rs.getString("formula"));
+						
 				   if((rs.getString("formula")).contains("a"))
+					   
 					   try{
 						   //JOptionPane.showMessageDialog(null, "contains a");
 						   textField.setEditable(true);
@@ -113,6 +116,7 @@ public class EvaluateFormula extends JFrame {
 						{
 						JOptionPane.showMessageDialog(null, "catch for a");
 						}
+				   
 				   else
 						
 					   //JOptionPane.showMessageDialog(null, "opps!");
@@ -146,10 +150,13 @@ public class EvaluateFormula extends JFrame {
 					   //JOptionPane.showMessageDialog(null, "opps!");
 					   textField_2.setEditable(false);
 				   
+				   
 				   if((rs.getString("formula")).contains("d"))
 					   try{
 						   //JOptionPane.showMessageDialog(null, "contains d");
 						   textField_3.setEditable(true);
+						   
+						   
 							}
 						catch(Exception e1)
 						{
@@ -217,20 +224,83 @@ public class EvaluateFormula extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String str = textField_6.getText();
 				try {
-					JOptionPane.showMessageDialog(null, textField.getText());
-					JOptionPane.showMessageDialog(null, textField_1.getText());
-					JOptionPane.showMessageDialog(null, textField_2.getText());
-					JOptionPane.showMessageDialog(null, textField_3.getText());
+//					JOptionPane.showMessageDialog(null, textField.getText());
+//					JOptionPane.showMessageDialog(null, textField_1.getText());
+//					JOptionPane.showMessageDialog(null, textField_2.getText());
+//					JOptionPane.showMessageDialog(null, textField_3.getText());
+//					
+//					int num = Integer.parseInt(str);
+//					JOptionPane.showMessageDialog(null, "is integer");
+//					
+//					float = float.ValueOf(str.replace("a", textField.getText()O));
 					
+					//str = str.replace("a", Integer.valueOf(textField.getText()));
+//					
+//					if(textField.getText().equals(""))
+//					{
+//						JOptionPane.showMessageDialog(null, "is empty");	
+//					}
+//					
+//					Integer.parseInt(textField.getText());
+//					JOptionPane.showMessageDialog(null, "is integer");
+//					Integer.parseInt(textField_1.getText());
+//					JOptionPane.showMessageDialog(null, "is integer");
+//					Integer.parseInt(textField_2.getText());
+//					JOptionPane.showMessageDialog(null, "is integer");
+//					Integer.parseInt(textField_3.getText());
+//					JOptionPane.showMessageDialog(null, "is integer");
 					
-					str = str.replace("a", textField.getText());
-					str = str.replace("b", textField_1.getText());
-					str = str.replace("c", textField_2.getText());
-					str = str.replace("d", textField_3.getText());
+					if(!(textField.getText().equals("")))
+					{
+						
+						//JOptionPane.showMessageDialog(null, "is empty");
+						//Integer.parseInt(textField.getText());
+						Float.parseFloat(textField.getText());
+						if((Float.parseFloat(textField.getText()))<0)
+							str = str.replace("a","("+textField.getText()+")");
+						else
+						str = str.replace("a", textField.getText());
+					}
+					if(!(textField_1.getText().equals("")))
+					{
+						//JOptionPane.showMessageDialog(null, "is empty");
+						//Integer.parseInt(textField_1.getText());
+						Float.parseFloat(textField_1.getText());
+						if((Float.parseFloat(textField_1.getText()))<0)
+							str = str.replace("b","("+textField_1.getText()+")");
+						else
+						str = str.replace("b", textField_1.getText());
+					}
+					if(!(textField_2.getText().equals("")))
+					{
+						//JOptionPane.showMessageDialog(null, "is empty");	
+						//Integer.parseInt(textField_2.getText());
+						Float.parseFloat(textField_2.getText());
+						if((Float.parseFloat(textField_2.getText()))<0)
+							str = str.replace("c","("+textField_2.getText()+")");
+						else
+						str = str.replace("c", textField_2.getText());
+					}
+					if(!(textField_3.getText().equals("")))
+					{
+						//JOptionPane.showMessageDialog(null, "is empty");
+						//Integer.parseInt(textField_3.getText());
+						Float.parseFloat(textField_3.getText());
+						if((Float.parseFloat(textField_3.getText()))<0)
+							str = str.replace("d","("+textField_3.getText()+")");
+						else
+						str = str.replace("d", textField_3.getText());
+					}
+//					str = str.replace("a", textField.getText());
+//					str = str.replace("b", textField_1.getText());
+//					str = str.replace("c", textField_2.getText());
+//					str = str.replace("d", textField_3.getText());
+					
 					textField_4.setText(str);
+					
 				} catch (Exception e14) {
 					// TODO Auto-generated catch block
-					e14.printStackTrace();
+					JOptionPane.showMessageDialog(null, "pls enter integer");
 				}
 				
 			}
@@ -274,10 +344,15 @@ public class EvaluateFormula extends JFrame {
 		JButton btnCalculate = new JButton("Calculate");
 		btnCalculate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String expression = textField_4.getText();
+				expressionReverse sr = new expressionReverse();
+				String text = sr.reverse(expression);
 				NiBoLan nb=new NiBoLan();
-				nb.reverse(textField_4.getText());
-				Stack<String> abc = (nb.getReversedExpression());
-				JOptionPane.showMessageDialog(null, abc);
+				float result= nb.cal(text);
+				//JOptionPane.showMessageDialog(null, "Result is"+ " "+ result);
+				textField_5.setText(String.valueOf(result));
+//				Stack<String> abc = (nb.getReversedExpression());
+//				JOptionPane.showMessageDialog(null, abc);
 			}
 			
 		});

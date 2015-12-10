@@ -43,7 +43,9 @@ public class NiBoLan {
 		public void reverse(String expression){
 			int index = 0;
 			int end = 0;
+			expression = expression.replaceAll("[(]-", "(0-");
 			for(int i = 0; i < expression.length() ; i++){
+				
 				if( String.valueOf( expression.charAt(i) ).matches(  "[0-9.]")  ){
 					//make sure what we get is the whole value
 					end++;
